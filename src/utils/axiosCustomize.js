@@ -2,7 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const instance = axios.create({
-  baseURL: "http://localhost:8080/",
+  baseURL: "https://fullstack-backend-6li3.onrender.com/",
   timeout: 10000,
   withCredentials: true,
 });
@@ -37,4 +37,3 @@ instance.interceptors.response.use(
 );
 
 export default instance;
-
