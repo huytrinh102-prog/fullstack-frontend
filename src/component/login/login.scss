@@ -1,0 +1,42 @@
+.login-container {
+  .login-right {
+    height: 100vh;
+    .login-right-content {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      .brand {
+        font-size: 30px;
+        font-weight: 900;
+        color: #06007c;
+        height: auto;
+        width: auto;
+      }
+    }
+  }
+  .login-left {
+    height: 100vh;
+    .login-left-wrap {
+      height: auto;
+      .brand {
+        font-weight: 900;
+
+        height: auto;
+        font-size: 30px;
+      }
+      .login-left-content {
+        height: auto;
+        background-color: aliceblue;
+        border-radius: 6px;
+        box-shadow: 10px 10px 5px 2px rgba(0, 0, 0, 0.3);
+        box-sizing: border-box;
+      }
+    }
+
+    .span {
+      border-bottom: 1px solid balck;
+    }
+  }
+}
