@@ -2,11 +2,11 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const instance = axios.create({
-  baseURL: "https://fullstack-backend-6li3.onrender.com/",
+  baseURL: "http://localhost:8081/",
   timeout: 10000,
   withCredentials: true,
 });
-
+// "https://fullstack-backend-6li3.onrender.com/"
 instance.interceptors.response.use(
   function (response) {
     return response.data;
