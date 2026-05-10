@@ -2,8 +2,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 const baseURL =
   process.env.NODE_ENV === "development"
-    ? "http://localhost:8080"
-    : "https://fullstack-backend-6li3.onrender.com";
+    ? "http://localhost:8080/"
+    : "https://fullstack-backend-6li3.onrender.com/";
 
 const instance = axios.create({
   baseURL,
