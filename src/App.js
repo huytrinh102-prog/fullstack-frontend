@@ -31,8 +31,6 @@ const App = () => {
         if (res && +res.EC === 0) {
           dispatch(loginSuccess({ user: res.DT }));
         } else {
-          localStorage.removeItem("access_token");
-
           dispatch(
             loginSuccess({
               user: null,
@@ -40,13 +38,15 @@ const App = () => {
           );
         }
       } catch (error) {
-        localStorage.removeItem("access_token");
-
-        dispatch(
-          loginSuccess({
-            user: null,
-          }),
-        );
+        const status = error?.response?.status;
+        if (status === 401) {
+          localStorage.removeItem("access_token");
+          dispatch(
+            loginSuccess({
+              user: null,
+            }),
+          );
+        }
       }
     };
     accountData();
