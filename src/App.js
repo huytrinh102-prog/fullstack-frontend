@@ -20,15 +20,33 @@ const App = () => {
 
   useEffect(() => {
     const accountData = async () => {
+      const token = localStorage.getItem("access_token");
+
+      if (!token) {
+        dispatch(loginSuccess({ user: null }));
+        return;
+      }
       try {
         let res = await GetAccountData();
         if (res && +res.EC === 0) {
           dispatch(loginSuccess({ user: res.DT }));
         } else {
-          dispatch(loginSuccess({ user: null }));
+          localStorage.removeItem("access_token");
+
+          dispatch(
+            loginSuccess({
+              user: null,
+            }),
+          );
         }
       } catch (error) {
-        dispatch(loginSuccess({ user: null }));
+        localStorage.removeItem("access_token");
+
+        dispatch(
+          loginSuccess({
+            user: null,
+          }),
+        );
       }
     };
     accountData();

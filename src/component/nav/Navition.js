@@ -15,6 +15,7 @@ const NAV = () => {
     try {
       let res = await Logout();
       if (res) {
+        localStorage.removeItem("access_token");
         dispatch(logout());
         navigate("/login");
       }

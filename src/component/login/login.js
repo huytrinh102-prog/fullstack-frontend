@@ -23,6 +23,7 @@ const Login = () => {
     }
     let res = await LoginUser(input, password);
     if (res && +res?.EC === 0) {
+      localStorage.setItem("access_token", res.DT.access_token);
       dispatch(loginSuccess({ user: res.DT.user }));
       toast.success(res.EM);
       navigate("/users");
