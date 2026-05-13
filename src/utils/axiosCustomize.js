@@ -11,6 +11,19 @@ const instance = axios.create({
   withCredentials: true,
 });
 
+let refreshPromise = null;
+const refreshAccessToken = async () => {
+  if (!refreshPromise) {
+    refreshPromise = axios
+      .post(`${baseURL}api/v1/refresh-token`, {}, { withCredentials: true })
+      .then((res) => res.data)
+      .finally(() => {
+        refreshPromise = null;
+      });
+  }
+  return refreshPromise;
+};
+
 // set Authorization
 instance.interceptors.request.use(function (config) {
   const token = localStorage.getItem("access_token");
@@ -26,8 +39,29 @@ instance.interceptors.response.use(
   function (response) {
     return response.data;
   },
-  function (error) {
+  async function (error) {
     const status = error.response?.status;
+    const originalConfig = error.config || {};
+
+    if (
+      status === 401 &&
+      !originalConfig._retry &&
+      !String(originalConfig.url || "").includes("api/v1/refresh-token")
+    ) {
+      originalConfig._retry = true;
+      try {
+        const refreshRes = await refreshAccessToken();
+        if (refreshRes && +refreshRes.EC === 0) {
+          localStorage.setItem("access_token", refreshRes.DT.access_token);
+          originalConfig.headers = originalConfig.headers || {};
+          originalConfig.headers.Authorization = `Bearer ${refreshRes.DT.access_token}`;
+          return instance(originalConfig);
+        }
+      } catch (e) {
+        // fall through to normal error handling
+      }
+    }
+
     switch (status) {
       case 400:
         toast.error("Bad request");
