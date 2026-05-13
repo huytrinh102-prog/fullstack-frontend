@@ -114,7 +114,10 @@ const User = () => {
             />
           </div>
           <div className="col-12 col-md-6 d-flex gap-2 justify-content-md-end">
-            <button className="btn btn-outline-secondary" onClick={handleToggleSortId}>
+            <button
+              className="btn btn-outline-secondary"
+              onClick={handleToggleSortId}
+            >
               Sort ID ({sort})
             </button>
             <button className="btn btn-success" onClick={handleRefresh}>
@@ -204,6 +207,7 @@ const User = () => {
         />
       </div>
       <ModalCreateUpdateUser
+        onSuccess={fetchListUsers}
         listGroups={listGroups}
         setShow={setShowModal}
         ModalData={ModalData}

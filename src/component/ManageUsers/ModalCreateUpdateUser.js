@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import "./Users.scss";
 const ModalCreateUser = (props) => {
   const {
+    onSuccess,
     show,
     setShow,
     ModalData,
@@ -67,6 +68,7 @@ const ModalCreateUser = (props) => {
     if (modal === "CREATE") {
       const res = await CreateUser(userDataSubmit);
       if (res && +res.EC === 0) {
+        onSuccess?.();
         toast.success(res.EM);
         setUserDataSubmit(userData);
         setShow(false);
@@ -74,10 +76,10 @@ const ModalCreateUser = (props) => {
         toast.error(res.EM);
       }
     }
-    console.log("SUBMIT:", userDataSubmit);
     if (modal === "UPDATE") {
       const res = await UpdateUser(userDataSubmit, ModalData.id);
       if (res && +res.EC === 0) {
+        onSuccess?.();
         toast.success(res.EM);
         setShow(false);
       } else {
