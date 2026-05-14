@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import ModalCreateUpdateUser from "./ModalCreateUpdateUser";
 import { useSearchParams } from "react-router-dom";
 import { BsArrowDownUp } from "react-icons/bs";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 const User = () => {
   const [listUser, setListUser] = useState([]);
   const [totalPages, setTotalPages] = useState(1);

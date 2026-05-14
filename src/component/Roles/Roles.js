@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { toast } from "react-toastify";
-import { CreateRoles, DeleteRoles, GetAllRoles, UpdateRoles } from "../services/userservice";
+import {
+  CreateRoles,
+  DeleteRoles,
+  GetAllRoles,
+  UpdateRoles,
+} from "../services/userservice";
 import { useSearchParams } from "react-router-dom";
 
 const Roles = () => {
@@ -17,7 +22,8 @@ const Roles = () => {
 
   const fetchRoles = async () => {
     const res = await GetAllRoles(currentPage, 10, keyword, sort);
-    if (res && +res.EC === 0) {
+    if (res) {
+      console.log("reol", res);
       setRoles(res.DT?.roles || res.DT || []);
       setTotalPages(res.DT?.totalPages || 1);
     }
@@ -95,12 +101,17 @@ const Roles = () => {
           />
         </div>
         <div className="col-12 col-md-6 d-flex gap-2 justify-content-md-end">
-          <button className="btn btn-outline-secondary" onClick={handleToggleSortId}>
+          <button
+            className="btn btn-outline-secondary"
+            onClick={handleToggleSortId}
+          >
             Sort ID ({sort})
           </button>
           <button
             className="btn btn-success"
-            onClick={() => setSearchParams({ page: 1, search: "", sort: "id,desc" })}
+            onClick={() =>
+              setSearchParams({ page: 1, search: "", sort: "id,desc" })
+            }
           >
             Reset
           </button>
@@ -122,7 +133,9 @@ const Roles = () => {
               className="form-control"
               placeholder="description"
               value={form.description}
-              onChange={(e) => setForm({ ...form, description: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, description: e.target.value })
+              }
             />
           </div>
           <div className="col-12 col-md-2 d-grid">
@@ -151,10 +164,16 @@ const Roles = () => {
                   <td>{r.url || ""}</td>
                   <td>{r.description || ""}</td>
                   <td className="d-flex gap-2">
-                    <button className="btn btn-sm btn-success" onClick={() => handleEdit(r)}>
+                    <button
+                      className="btn btn-sm btn-success"
+                      onClick={() => handleEdit(r)}
+                    >
                       Edit
                     </button>
-                    <button className="btn btn-sm btn-danger" onClick={() => handleDelete(r.id)}>
+                    <button
+                      className="btn btn-sm btn-danger"
+                      onClick={() => handleDelete(r.id)}
+                    >
                       Delete
                     </button>
                   </td>
