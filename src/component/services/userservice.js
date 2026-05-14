@@ -92,12 +92,9 @@ const uploadToCloudinary = (data, file) => {
     { withCredentials: false },
   );
 };
-const RefreshToken = () => {
-  return axios.post("api/v1/refresh-token", {}, { withCredentials: true });
-};
+
 export {
   uploadToCloudinary,
-  RefreshToken,
   CreateNewUser,
   GetSignAvatar,
   LoginUser,

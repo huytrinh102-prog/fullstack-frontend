@@ -77,12 +77,23 @@ const User = () => {
   //   const next = direction === "asc" ? "desc" : "asc";
   //   setSearchParams({ page: 1, search: keyword, sort: `id,${next}` });
   // };
-  const handleSort = (field, direction) => {
-    setSearchParams({
-      page: 1,
-      search: keyword,
-      sort: `${field},${direction}`,
-    });
+  const handleSort = (field) => {
+    const [currentField, currentDirection] = sort.split(",");
+
+    if (field === currentField) {
+      const nextDirection = currentDirection === "asc" ? "desc" : "asc";
+      setSearchParams({
+        page: 1,
+        search: keyword,
+        sort: `${field},${nextDirection}`,
+      });
+    } else {
+      setSearchParams({
+        page: 1,
+        search: keyword,
+        sort: `${field},asc`,
+      });
+    }
   };
   const handleDeleteUser = async (id, email) => {
     const confirmDelete = window.confirm(`Delete this user? : ${email}`);
@@ -127,7 +138,7 @@ const User = () => {
             >
               Sort ID ({sort})
             </button> */}
-            <div className="dropdown">
+            <div className="dropdown ">
               <button
                 className="btn btn-outline-secondary dropdown-toggle sort-btn"
                 type="button"
@@ -140,7 +151,7 @@ const User = () => {
                 <li>
                   <button
                     className="dropdown-item"
-                    onClick={() => handleSort("id", "asc")}
+                    onClick={() => handleSort("id")}
                   >
                     ID
                   </button>
@@ -148,7 +159,7 @@ const User = () => {
                 <li>
                   <button
                     className="dropdown-item"
-                    onClick={() => handleSort("username", "asc")}
+                    onClick={() => handleSort("username")}
                   >
                     Name
                   </button>
@@ -157,7 +168,7 @@ const User = () => {
                 <li>
                   <button
                     className="dropdown-item"
-                    onClick={() => handleSort("createdAt", "desc")}
+                    onClick={() => handleSort("createdAt")}
                   >
                     Date Created
                   </button>
