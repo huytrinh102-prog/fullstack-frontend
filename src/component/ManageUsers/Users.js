@@ -5,7 +5,7 @@ import "./Users.scss";
 import { toast } from "react-toastify";
 import ModalCreateUpdateUser from "./ModalCreateUpdateUser";
 import { useSearchParams } from "react-router-dom";
-
+import { BsArrowDownUp } from "react-icons/bs";
 const User = () => {
   const [listUser, setListUser] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
@@ -29,7 +29,6 @@ const User = () => {
   const currentPage = +searchParams.get("page") || 1;
   const keyword = searchParams.get("search") || "";
   const sort = searchParams.get("sort") || "id,desc";
-
   const fetchAllGroups = async () => {
     const res = await GetAllGroups();
     if (res && +res?.EC === 0) {
@@ -67,16 +66,22 @@ const User = () => {
     setSearchParams({ page: 1, search: e.target.value, sort });
   };
 
-  const handleToggleSortId = () => {
-    const [field, direction] = sort.split(",");
-    if (field !== "id") {
-      setSearchParams({ page: 1, search: keyword, sort: "id,asc" });
-      return;
-    }
-    const next = direction === "asc" ? "desc" : "asc";
-    setSearchParams({ page: 1, search: keyword, sort: `id,${next}` });
+  // const handleToggleSortId = () => {
+  //   const [field, direction] = sort.split(",");
+  //   if (field !== "id") {
+  //     setSearchParams({ page: 1, search: keyword, sort: "id,asc" });
+  //     return;
+  //   }
+  //   const next = direction === "asc" ? "desc" : "asc";
+  //   setSearchParams({ page: 1, search: keyword, sort: `id,${next}` });
+  // };
+  const handleSort = (field, direction) => {
+    setSearchParams({
+      page: 1,
+      search: keyword,
+      sort: `${field},${direction}`,
+    });
   };
-
   const handleDeleteUser = async (id, email) => {
     const confirmDelete = window.confirm(`Delete this user? : ${email}`);
     if (!confirmDelete) return;
@@ -114,12 +119,50 @@ const User = () => {
             />
           </div>
           <div className="col-12 col-md-6 d-flex gap-2 justify-content-md-end">
-            <button
+            {/* <button
               className="btn btn-outline-secondary"
               onClick={handleToggleSortId}
             >
               Sort ID ({sort})
-            </button>
+            </button> */}
+            <div className="dropdown">
+              <button
+                className="btn btn-outline-secondary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+              >
+                <BsArrowDownUp />
+                Sort by
+              </button>
+
+              <ul className="dropdown-menu">
+                <li>
+                  <button
+                    className="dropdown-item"
+                    onClick={() => handleSort("id", "asc")}
+                  >
+                    ID
+                  </button>
+                </li>
+                <li>
+                  <button
+                    className="dropdown-item"
+                    onClick={() => handleSort("username", "asc")}
+                  >
+                    Name
+                  </button>
+                </li>
+
+                <li>
+                  <button
+                    className="dropdown-item"
+                    onClick={() => handleSort("createdAt", "desc")}
+                  >
+                    Date Created
+                  </button>
+                </li>
+              </ul>
+            </div>
             <button className="btn btn-success" onClick={handleRefresh}>
               Reset
             </button>
