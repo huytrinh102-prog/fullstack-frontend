@@ -7,7 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import store from "./component/redux/store";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-
+import "bootstrap/dist/css/bootstrap.min.css";
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>

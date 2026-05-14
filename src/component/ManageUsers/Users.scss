@@ -91,3 +91,40 @@
   width: 100%;
   border-radius: 6px;
 }
+.sort-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 14px;
+  border-radius: 10px !important;
+
+  font-weight: 500;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  .sort-icon {
+    font-size: 15px;
+  }
+}
+
+.dropdown-menu {
+  border-radius: 12px !important;
+  padding: 8px;
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+  .dropdown-item {
+    border-radius: 8px;
+    padding: 10px 12px;
+    transition: all 0.15s ease;
+
+    &:hover {
+      background: #f3f4f6;
+      transform: translateX(2px);
+    }
+  }
+}

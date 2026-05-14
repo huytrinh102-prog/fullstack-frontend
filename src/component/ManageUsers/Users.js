@@ -127,14 +127,13 @@ const User = () => {
             </button> */}
             <div className="dropdown">
               <button
-                className="btn btn-outline-secondary dropdown-toggle"
+                className="btn btn-outline-secondary dropdown-toggle sort-btn"
                 type="button"
                 data-bs-toggle="dropdown"
               >
-                <BsArrowDownUp />
-                Sort by
+                <BsArrowDownUp className="sort-icon" />
+                <span>Sort by</span>
               </button>
-
               <ul className="dropdown-menu">
                 <li>
                   <button
