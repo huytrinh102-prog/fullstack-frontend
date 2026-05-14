@@ -190,7 +190,7 @@ const User = () => {
           onPageChange={handlePageClick}
           pageRangeDisplayed={3}
           marginPagesDisplayed={2}
-          pageCount={totalPages > 5 ? +totalPages : 5}
+          pageCount={+totalPages || 1}
           previousLabel="< previous"
           pageClassName="page-item"
           pageLinkClassName="page-link"

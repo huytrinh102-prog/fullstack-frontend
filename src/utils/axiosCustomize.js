@@ -1,5 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+import { RefreshToken } from "../component/services/userservice";
 const baseURL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:8080/"
@@ -10,31 +11,14 @@ const instance = axios.create({
   timeout: 10000,
   withCredentials: true,
 });
-
-let refreshPromise = null;
-const refreshAccessToken = async () => {
-  if (!refreshPromise) {
-    refreshPromise = axios
-      .post(`${baseURL}api/v1/refresh-token`, {}, { withCredentials: true })
-      .then((res) => res.data)
-      .finally(() => {
-        refreshPromise = null;
-      });
-  }
-  return refreshPromise;
-};
-
 // set Authorization
 instance.interceptors.request.use(function (config) {
   const token = localStorage.getItem("access_token");
-
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
-
   return config;
 });
-
 instance.interceptors.response.use(
   function (response) {
     return response.data;
@@ -50,7 +34,7 @@ instance.interceptors.response.use(
     ) {
       originalConfig._retry = true;
       try {
-        const refreshRes = await refreshAccessToken();
+        const refreshRes = await RefreshToken();
         if (refreshRes && +refreshRes.EC === 0) {
           localStorage.setItem("access_token", refreshRes.DT.access_token);
           originalConfig.headers = originalConfig.headers || {};
