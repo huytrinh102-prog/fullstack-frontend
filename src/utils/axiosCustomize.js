@@ -37,7 +37,9 @@ instance.interceptors.response.use(
         const refreshRes = await axios
           .post(`${baseURL}api/v1/refresh-token`, {}, { withCredentials: true })
           .then((r) => r.data);
+        console.log("aaaa", refreshRes);
         if (refreshRes && +refreshRes.EC === 0) {
+          console.log("aaaa", refreshRes);
           localStorage.setItem("access_token", refreshRes.DT.access_token);
           originalConfig.headers = originalConfig.headers || {};
           originalConfig.headers.Authorization = `Bearer ${refreshRes.DT.access_token}`;
