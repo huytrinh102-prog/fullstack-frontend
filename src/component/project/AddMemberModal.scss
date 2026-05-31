@@ -1,0 +1,43 @@
+.add-member-modal {
+  /* Light defaults */
+  --amm-bg: #ffffff;
+  --amm-text: #0f172a;
+  --amm-muted: #475569;
+  --amm-border: rgba(15, 23, 42, 0.12);
+  --amm-input-bg: #f1f5f9;
+  --amm-backdrop: rgba(2, 6, 23, 0.45);
+
+  background: var(--amm-bg);
+  color: var(--amm-text);
+  border: 1px solid var(--amm-border);
+  border-radius: 18px;
+}
+
+body.dark .add-member-modal {
+  --amm-bg: #111c31;
+  --amm-text: #e2e8f0;
+  --amm-muted: #94a3b8;
+  --amm-border: rgba(255, 255, 255, 0.08);
+  --amm-input-bg: #172033;
+  --amm-backdrop: rgba(0, 0, 0, 0.7);
+}
+
+.add-member-modal__input {
+  background: var(--amm-input-bg) !important;
+  color: var(--amm-text) !important;
+  border-color: var(--amm-border) !important;
+}
+
+.add-member-modal__list {
+  border: 1px solid var(--amm-border);
+  border-radius: 10px;
+}
+
+.add-member-modal__muted {
+  color: var(--amm-muted);
+}
+
+body.dark .add-member-modal .border-bottom {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+

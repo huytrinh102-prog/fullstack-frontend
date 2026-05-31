@@ -3,14 +3,31 @@ import Login from "../login/login.js";
 import Register from "../register/register.js";
 import User from "../ManageUsers/Users.js";
 import { PrivateRoute, PublicRoute } from "./PrivateRoute.jsx";
-import Roles from "../Roles/Roles.js";
+import Roles from "../roles/Roles.js";
 import GroupRole from "../group-role/group-role.js";
+import Project from "../project/Project.js";
+import ProjectDetail from "../project/ProjectView.js";
+import HomePage from "../home/home.js";
 const Layout = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<h1>home</h1>} />
-        <Route path="/Project" element={<h1>contatc</h1>} />
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <HomePage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/project"
+          element={
+            <PrivateRoute>
+              <Project />
+            </PrivateRoute>
+          }
+        />
         <Route
           path="/roles"
           element={
@@ -43,7 +60,8 @@ const Layout = () => {
               <User />
             </PrivateRoute>
           }
-        />
+        />{" "}
+        <Route path="/project/:id" element={<ProjectDetail />} />
         <Route path="*" element={<h1>404</h1>} />
       </Routes>
     </>

@@ -1,70 +1,90 @@
-# Getting Started with Create React App
+# Eric App (Frontend)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Frontend React cho hệ thống **Auth + Quản lý Users/Roles/Group-Role**.
 
-## Available Scripts
+## Tính năng chính
 
-In the project directory, you can run:
+- Đăng ký / đăng nhập (email/username + password)
+- Đăng nhập Google (Google OAuth)
+- Tự attach `Authorization: Bearer <access_token>` cho request
+- Tự refresh token khi gặp `401` (gọi `api/v1/refresh-token`)
+- CRUD Users + phân trang/tìm kiếm/sort
+- CRUD Roles + phân trang/tìm kiếm/sort
+- Gán roles theo group (Group-Role)
+- Upload avatar qua Cloudinary (backend ký request, FE upload lên Cloudinary)
 
-### `npm start`
+## Tech stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- React 17 + Create React App
+- React Router v6
+- Redux Toolkit + React Redux
+- Axios + interceptors
+- Bootstrap / React-Bootstrap + Sass
+- React Toastify
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Yêu cầu
 
-### `npm test`
+- Node.js + npm
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Cài đặt & chạy local
 
-### `npm run build`
+```bash
+npm install
+npm start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Mặc định chạy ở `http://localhost:3000`.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Scripts
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- `npm start`: chạy dev
+- `npm test`: chạy test (watch mode)
+- `npm run build`: build production ra thư mục `build/`
 
-### `npm run eject`
+Ghi chú: project dùng wrapper `scripts/cra.js` để tự thêm `--openssl-legacy-provider` khi cần (thường gặp trên Node/OpenSSL mới).
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Cấu hình API (Backend base URL)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Khuyến nghị cấu hình base URL qua biến môi trường:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1) Tạo `.env` từ mẫu:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```bash
+cp .env.example .env
+```
 
-## Learn More
+2) Sửa `REACT_APP_API_BASE_URL` theo backend bạn đang chạy.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Nếu không set `REACT_APP_API_BASE_URL`, app sẽ fallback theo `NODE_ENV` trong `src/utils/axiosCustomize.js`:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Dev (`NODE_ENV=development`): `http://localhost:8080/`
+- Prod: `https://fullstack-backend-6li3.onrender.com/`
 
-### Code Splitting
+## Auth flow (tóm tắt)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Sau khi login thành công, FE lưu `access_token` vào `localStorage` với key `access_token`.
+- Mọi request sẽ tự gắn header `Authorization` nếu có token.
+- Khi bị `401` (trừ endpoint refresh), FE sẽ gọi `api/v1/refresh-token` với `withCredentials: true`, cập nhật token mới rồi retry request.
 
-### Analyzing the Bundle Size
+## Routes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Public:
+  - `/login`
+  - `/register`
+- Private (cần đăng nhập):
+  - `/users`
+  - `/roles`
+  - `/group-role`
 
-### Making a Progressive Web App
+## Cấu trúc thư mục (rút gọn)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- `src/utils/axiosCustomize.js`: Axios instance + interceptors + baseURL
+- `src/component/services/userservice.js`: API services
+- `src/component/redux/*`: Redux store + auth slice
+- `src/component/PrivateRoute/*`: PrivateRoute/PublicRoute + routes
+- `src/component/*`: các màn hình (login/register/users/roles/group-role/nav)
 
-### Advanced Configuration
+## Notes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- `GoogleOAuthProvider` đang dùng `clientId` hard-code trong `src/index.js`. Khi deploy thực tế nên chuyển sang biến môi trường.
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

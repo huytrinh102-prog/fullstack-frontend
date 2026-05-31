@@ -1,9 +1,19 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+
+const normalizeBaseUrl = (value) => {
+  if (!value) return null;
+  const trimmed = String(value).trim();
+  if (!trimmed) return null;
+  return trimmed.endsWith("/") ? trimmed : `${trimmed}/`;
+};
+
+const envBaseUrl = normalizeBaseUrl(process.env.REACT_APP_API_BASE_URL);
 const baseURL =
-  process.env.NODE_ENV === "development"
+  envBaseUrl ||
+  (process.env.NODE_ENV === "development"
     ? "http://localhost:8080/"
-    : "https://fullstack-backend-6li3.onrender.com/";
+    : "https://fullstack-backend-6li3.onrender.com/");
 
 const instance = axios.create({
   baseURL,
@@ -26,6 +36,11 @@ instance.interceptors.response.use(
   async function (error) {
     const status = error.response?.status;
     const originalConfig = error.config || {};
+
+    if (!error.response) {
+      toast.error("Network error: backend unreachable");
+      return Promise.reject(error);
+    }
 
     if (
       status === 401 &&

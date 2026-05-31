@@ -1,0 +1,101 @@
+.project-view {
+  /* Light theme defaults */
+  --pv-page-bg: #f8fafc;
+  --pv-text: #0f172a;
+  --pv-muted: #475569;
+  --pv-card: #ffffff;
+  --pv-card-2: #f1f5f9;
+  --pv-border: rgba(15, 23, 42, 0.12);
+  --pv-progress-track: rgba(15, 23, 42, 0.1);
+  --pv-modal-backdrop: rgba(2, 6, 23, 0.45);
+  --pv-hero-overlay: linear-gradient(
+    to top,
+    rgba(248, 250, 252, 0.92),
+    rgba(248, 250, 252, 0.35)
+  );
+}
+
+body.dark .project-view {
+  --pv-page-bg: #0b1220;
+  --pv-text: #e2e8f0;
+  --pv-muted: #94a3b8;
+  --pv-card: #111c31;
+  --pv-card-2: #172033;
+  --pv-border: rgba(255, 255, 255, 0.08);
+  --pv-progress-track: rgba(255, 255, 255, 0.08);
+  --pv-modal-backdrop: rgba(0, 0, 0, 0.7);
+  --pv-hero-overlay: linear-gradient(
+    to top,
+    rgba(9, 9, 9, 0.95),
+    rgba(2, 6, 23, 0.25)
+  );
+}
+
+.project-view__page {
+  min-height: 100vh;
+  background: var(--pv-page-bg);
+  color: var(--pv-text);
+}
+
+.project-view__shell {
+  border-radius: 28px;
+  border: 1px solid var(--pv-border);
+  background: var(--pv-page-bg);
+}
+
+.project-view__card {
+  background: var(--pv-card);
+  border-radius: 24px;
+  border: 1px solid var(--pv-border);
+}
+
+.project-view__hero-title {
+  color: var(--pv-text);
+}
+
+.project-view__hero-desc {
+  color: var(--pv-muted);
+  max-width: 700px;
+  font-size: 15px;
+  margin-bottom: 24px;
+}
+
+.project-view__hero-meta {
+  color: var(--pv-muted);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.project-view__member-text {
+  color: var(--pv-muted);
+}
+
+.project-view__muted {
+  color: var(--pv-muted);
+  font-size: 14px;
+}
+
+.project-view__modal {
+  width: 520px;
+  background: var(--pv-card);
+  border-radius: 28px;
+  color: var(--pv-text);
+  border: 1px solid var(--pv-border);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.project-view__input {
+  background: var(--pv-card-2) !important;
+  color: var(--pv-text) !important;
+}
+
+body.dark .project-view__input::placeholder {
+  color: #bdbdbd;
+  opacity: 1;
+}
+
+.member-avatar:hover .member-name {
+  opacity: 1 !important;
+  visibility: visible !important;
+}

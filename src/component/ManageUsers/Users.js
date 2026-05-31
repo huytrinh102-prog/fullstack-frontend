@@ -68,15 +68,6 @@ const User = () => {
     setSearchParams({ page: 1, search: e.target.value, sort });
   };
 
-  // const handleToggleSortId = () => {
-  //   const [field, direction] = sort.split(",");
-  //   if (field !== "id") {
-  //     setSearchParams({ page: 1, search: keyword, sort: "id,asc" });
-  //     return;
-  //   }
-  //   const next = direction === "asc" ? "desc" : "asc";
-  //   setSearchParams({ page: 1, search: keyword, sort: `id,${next}` });
-  // };
   const handleSort = (field) => {
     const [currentField, currentDirection] = sort.split(",");
 

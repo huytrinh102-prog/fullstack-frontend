@@ -1,22 +1,49 @@
 .nav-link {
   font-weight: 500;
-  transition: 0.2s;
+  transition: all 0.2s ease;
+  border-radius: 10px;
+  padding: 8px 14px !important;
 }
 
+/* HOVER */
 .nav-link:hover {
   transform: translateY(-1px);
+  background: rgba(0, 0, 0, 0.05);
 }
 
+/* ACTIVE TAB */
 .nav-link.active {
   font-weight: 700;
-  border-bottom: 2px solid black;
+  background: black;
+  color: white !important;
 }
 
+/* NAVBAR */
 .custom-nav {
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
   background: rgba(255, 255, 255, 0.7);
+
   border-radius: 16px;
+
   margin: 16px;
+
   padding: 12px 20px;
+
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* DARK MODE */
+[data-bs-theme="dark"] .custom-nav {
+  background: rgba(33, 37, 41, 0.7);
+}
+
+[data-bs-theme="dark"] .nav-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+[data-bs-theme="dark"] .nav-link.active {
+  background: white;
+  color: black !important;
 }

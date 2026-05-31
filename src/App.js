@@ -17,7 +17,10 @@ const App = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const isLoading = useSelector((state) => state.auth.isLoading);
-
+  const mode = useSelector((state) => state.theme.mode);
+  useEffect(() => {
+    document.body.className = mode;
+  }, [mode]);
   useEffect(() => {
     const accountData = async () => {
       const token = localStorage.getItem("access_token");
@@ -57,7 +60,7 @@ const App = () => {
       {isLoading ? (
         <LoadingPage />
       ) : (
-        <div>
+        <div className="app-container">
           {(location.pathname === "/" || user) && <NAV />}
           <Layout />
           <ToastContainer

@@ -1,5 +1,5 @@
 import axios from "../../utils/axiosCustomize";
-
+import cloudinaryAxios from "../../utils/cloudinaryAxios";
 const CreateNewUser = (data) => {
   return axios.post("api/v1/register", data);
 };
@@ -78,6 +78,52 @@ const UpdateRolesbyGroup = (data) => {
 const GetSignAvatar = () => {
   return axios.post("api/v1/cloudinary/sign-avatar");
 };
+const CreateProject = (data) => {
+  return axios.post("api/v1/project", data);
+};
+const GetAllProject = (keyword, filter) => {
+  return axios.get(
+    `api/v1/project?search=${keyword || ""}&filter=${filter || ""}`,
+  );
+};
+const AddMember = (id, userId) => {
+  return axios.post(`api/v1/project/${id}/members`, { userId });
+};
+const DeleteMember = (id, userId) => {
+  return axios.delete(`api/v1/project/${id}/members/${userId}`);
+};
+const GetMember = (id) => {
+  return axios.get(`api/v1/project/${id}/members`);
+};
+const UpdateProject = (data, id) => {
+  return axios.put(`api/v1/project/${id}`, data);
+};
+const DeleteProject = (id) => {
+  return axios.delete(`api/v1/project/${id}`);
+};
+const GetProjectsbyId = (id) => {
+  return axios.get(`api/v1/project/${id}`);
+};
+const CreateTodo = (data) => {
+  return axios.post("api/v1/todos", data);
+};
+const GetTodoofProject = (keyword, filter, priority, id) => {
+  return axios.get(
+    `/api/v1/todos/project/${id}?search=${keyword || ""}&filter=${filter || ""}&priority=${priority || ""}`,
+  );
+};
+const UpdateTodo = (data, id) => {
+  return axios.put(`api/v1/todos/${id}`, data);
+};
+const DeleteTodo = (id) => {
+  return axios.delete(`api/v1/todos/${id}`);
+};
+const GetTodosbyUser = (id) => {
+  return axios.get(`api/v1/todos/${id}`);
+};
+const GetDashboard = () => {
+  return axios.get("api/v1/dashboard");
+};
 const uploadToCloudinary = (data, file) => {
   const { cloudName, apiKey, timestamp, folder, signature } = data;
   const form = new FormData();
@@ -86,7 +132,7 @@ const uploadToCloudinary = (data, file) => {
   form.append("timestamp", timestamp);
   form.append("folder", folder);
   form.append("signature", signature);
-  return axios.post(
+  return cloudinaryAxios.post(
     `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
     form,
     { withCredentials: false },
@@ -94,6 +140,20 @@ const uploadToCloudinary = (data, file) => {
 };
 
 export {
+  GetDashboard,
+  AddMember,
+  GetMember,
+  DeleteMember,
+  GetProjectsbyId,
+  GetTodosbyUser,
+  DeleteTodo,
+  UpdateTodo,
+  GetTodoofProject,
+  CreateTodo,
+  DeleteProject,
+  UpdateProject,
+  CreateProject,
+  GetAllProject,
   uploadToCloudinary,
   CreateNewUser,
   GetSignAvatar,
