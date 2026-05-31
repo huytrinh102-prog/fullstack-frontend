@@ -3,7 +3,7 @@ import Login from "../login/login.js";
 import Register from "../register/register.js";
 import User from "../ManageUsers/Users.js";
 import { PrivateRoute, PublicRoute } from "./PrivateRoute.jsx";
-import Roles from "../roles/Roles.js";
+import Roles from "../Roles/Roles.js";
 import GroupRole from "../group-role/group-role.js";
 import Project from "../project/Project.js";
 import ProjectDetail from "../project/ProjectView.js";
