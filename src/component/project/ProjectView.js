@@ -39,7 +39,7 @@ const ProjectView = (props) => {
   const [userList, setUserList] = useState([]);
   const [memberIds, setMemberIds] = useState([]);
   // state update project
-  const [modal, setModal] = useState("UPDATE");
+  const [modal] = useState("UPDATE");
 
   const [projectDataSubmit, setProjectDataSubmit] = useState({
     name: "",
