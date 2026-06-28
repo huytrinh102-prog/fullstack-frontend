@@ -10,10 +10,9 @@ const normalizeBaseUrl = (value) => {
 
 const envBaseUrl = normalizeBaseUrl(process.env.REACT_APP_API_BASE_URL);
 const baseURL =
-  envBaseUrl ||
-  (process.env.NODE_ENV === "development"
-    ? "http://localhost:8080/"
-    : "https://fullstack-backend-6li3.onrender.com/");
+  process.env.NODE_ENV === "development"
+    ? envBaseUrl || "http://localhost:8080/"
+    : "https://yt-language-backend.onrender.com/";
 
 const instance = axios.create({
   baseURL,
