@@ -22,18 +22,18 @@ const Logout = () => {
 
 const GetAllUsers = (page, limit, keyword, sort) => {
   return axios.get(
-    `api/v1/read?page=${page}&limit=${limit}&search=${keyword || ""}&sort=${
+    `api/v1/users?page=${page}&limit=${limit}&search=${keyword || ""}&sort=${
       sort || "id,desc"
     }`,
   );
 };
 
 const DeleteUser = (id) => {
-  return axios.delete(`api/v1/delete/${id}`);
+  return axios.delete(`api/v1/users/${id}`);
 };
 
 const UpdateUser = (data, id) => {
-  return axios.put(`api/v1/update/${id}`, data);
+  return axios.put(`api/v1/users/${id}`, data);
 };
 
 const GetAllGroups = () => {
@@ -41,27 +41,27 @@ const GetAllGroups = () => {
 };
 
 const CreateUser = (data) => {
-  return axios.post("api/v1/create", data);
+  return axios.post("api/v1/users", data);
 };
 
 const CreateRoles = (data) => {
-  return axios.post("api/v1/role-create", data);
+  return axios.post("api/v1/roles", data);
 };
 
 const GetAllRoles = (page, limit, keyword, sort) => {
   return axios.get(
-    `api/v1/role-read?page=${page}&limit=${limit}&search=${keyword || ""}&sort=${
+    `api/v1/roles?page=${page}&limit=${limit}&search=${keyword || ""}&sort=${
       sort || "id,desc"
     }`,
   );
 };
 
 const DeleteRoles = (id) => {
-  return axios.delete(`api/v1/role-delete/${id}`);
+  return axios.delete(`api/v1/roles/${id}`);
 };
 
 const UpdateRoles = (data, id) => {
-  return axios.put(`api/v1/role-update/${id}`, data);
+  return axios.put(`api/v1/roles/${id}`, data);
 };
 
 const GetRoles = () => {
